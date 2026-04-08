@@ -282,6 +282,21 @@
       </plugins>
     </pluginManagement>
     <plugins>
+       <plugin>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <version>12.2.0</version>
+        <configuration>
+          <nvdApiKey>${env.NVDAPIKEY}</nvdApiKey>
+        </configuration>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>check</goal>
+                      </goals>
+                  </execution>
+              </executions>
+      </plugin>
       <!-- Keep disabled until jakarta upgrade occurs due to issues with liberty holding stdin/stdout open with ee8
       <plugin>
         <groupId>org.codehaus.cargo</groupId>
