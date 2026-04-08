@@ -14,7 +14,7 @@
 #    limitations under the License.
 #
 
-FROM openjdk:25
+FROM openjdk:25-rc-jdk
 COPY . /usr/src/myapp
 WORKDIR /usr/src/myapp
 RUN ./mvnw clean package
