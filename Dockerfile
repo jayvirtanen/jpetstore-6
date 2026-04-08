@@ -14,8 +14,19 @@
 #    limitations under the License.
 #
 
-FROM openjdk:25-rc-jdk
-COPY . /usr/src/myapp
-WORKDIR /usr/src/myapp
-RUN ./mvnw clean package
-CMD ./mvnw cargo:run -P tomcat90
+# Runtime-only image for jpetstore-6
+FROM tomcat:9.0-jdk17-temurin
+
+# Clean default webapps so only jpetstore is deployed
+RUN rm -rf /usr/local/tomcat/webapps/*
+
+# Copy the WAR produced by: mvn package
+COPY target/jpetstore.war /usr/local/tomcat/webapps/jpetstore.war
+
+EXPOSE 8080
+
+# Optional but useful for Kubernetes / Docker health checks
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=5 \
+  CMD curl -fsS http://localhost:8080/jpetstore/ || exit 1
+
+CMD ["catalina.sh", "run"]
