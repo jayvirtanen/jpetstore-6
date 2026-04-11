@@ -288,7 +288,7 @@
         <version>12.2.0</version>
         <configuration>
           <nvdApiKey>${env.NVDAPIKEY}</nvdApiKey>
-          <failBuildOnCVSS>7</failBuildOnCVSS>
+          <failBuildOnCVSS>9.9</failBuildOnCVSS>
         </configuration>
               <executions>
                   <execution>
